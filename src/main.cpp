@@ -9,6 +9,8 @@
 
 using namespace geode::prelude;
 
+int clvlid = 1101; // Custom level ID?
+
 GJGameLevel* orgLevel = nullptr;
 std::string orgLevelString; // for the original Congregation level's string without the startpos
 bool jumpscare = false;
@@ -31,10 +33,10 @@ class $modify(PlayLayer) {
 		
 		if (distrib(gen) < chance) {
 			orgLevel = level;
-			level = GameLevelManager::get()->getSavedLevel(68668045);
+			level = GameLevelManager::get()->getSavedLevel(clvlid);
 			if (level->m_levelNotDownloaded) {
 				level = orgLevel;
-				GameLevelManager::get()->downloadLevel(68668045, false);
+				GameLevelManager::get()->downloadLevel(clvlid, false);
 				jumpscare = false;
 			} else {
 				if (orgLevelString.compare("")) 
@@ -58,7 +60,7 @@ class $modify(PlayLayer) {
 				else 
 					type = 3;
 
-				if (orgLevel->m_levelID.value() == 68668045) {
+				if (orgLevel->m_levelID.value() == clvlid) {
 					level->m_levelString = orgLevelString;
 					level = orgLevel;
 					jumpscare = false;
@@ -218,7 +220,7 @@ $on_mod(Loaded) {
 	auto GLM = GameLevelManager::get();
 	auto MDM = MusicDownloadManager::sharedState();
 
-	GLM->downloadLevel(68668045, false);
+	GLM->downloadLevel(clvlid, false);
 	#ifdef GEODE_IS_ANDROID
 		std::filesystem::path p = MDM->pathForSong(895761).c_str();
 		if (!std::filesystem::exists(p.parent_path() / "895761.mp3"))
