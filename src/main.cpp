@@ -9,7 +9,7 @@
 
 using namespace geode::prelude;
 
-int clvlid = 1101; // Custom level ID?
+int clvlid = 9192910; // Custom level ID?
 
 GJGameLevel* orgLevel = nullptr;
 std::string orgLevelString; // for the original Congregation level's string without the startpos
